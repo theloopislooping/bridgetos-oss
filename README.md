@@ -13,9 +13,11 @@ Open-source integration layer for BridgetOS — the runtime behavioral identity 
 
 ## What's not here
 
-The BridgetOS analytic core — measurement vectors, temporal horizons, governance state machine, identity credential issuance, and derivative detection — is proprietary and patent-protected (US Patent App. 19/651,602, HDIT Provisional 64/002,373).
+The BridgetOS analytic core — the scoring algorithms, vector weights, calibration parameters, threshold logic, governance state machine implementation, identity credential issuance, and the integrated runtime — is proprietary and runs as a hosted service.
 
-This repository contains only the integration surface: the schema agents emit, the client that sends them, framework adapters, and test infrastructure.
+The high-level architecture (Horizon-Defined Identity Tensor, multi-vector behavioral monitoring, governance state classification, derivative detection) is described in our patent filings: US Patent App. 19/651,602 and HDIT Provisional 64/002,373.
+
+This repository contains only the integration surface: the schema agents emit, the client that sends them, framework adapters, and test infrastructure. None of it implements the analytic core; it calls a remote BridgetOS API.
 
 ## Quick start
 

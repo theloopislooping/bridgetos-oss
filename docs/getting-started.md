@@ -11,15 +11,17 @@ This monorepo holds the open-source integration layer for BridgetOS — the runt
 
 ## What's not open source
 
-The BridgetOS analytic core is proprietary and patent-protected:
+The BridgetOS analytic core is proprietary and runs as a hosted service. What stays closed:
 
-- The 17 measurement vectors and their algorithms
-- The 6-horizon temporal architecture
-- The governance state machine
-- Cryptographic identity credential issuance and revocation
-- Derivative detection (US Patent App. 19/651,602, HDIT Provisional 64/002,373)
+- The scoring algorithms, vector weights, and calibration parameters
+- The threshold logic and decision boundaries
+- The implementation of the governance state machine
+- Cryptographic credential issuance and revocation
+- The integrated runtime that ties everything together
 
-This split is intentional: the integration surface is open so the ecosystem can adopt it freely; the analytic core stays closed because that's where the patent-protected IP lives.
+The high-level architecture — the Horizon-Defined Identity Tensor (HDIT), multi-vector behavioral monitoring across temporal horizons, governance state classification, and derivative detection — is described in our patent filings: US Patent App. 19/651,602 and HDIT Provisional 64/002,373. The architectural concepts are publicly readable; the implementations and parameters are not.
+
+This split is intentional: the integration surface is open so the ecosystem can adopt it freely; the implementation of the analytic core stays closed because that's the work product, the operational know-how, and the patent-protected execution.
 
 ## A typical setup
 
