@@ -1,0 +1,27 @@
+{
+  "agent_id": "support-bot-001",
+  "timestamp": "2026-05-01T18:00:00Z",
+  "schema_version": "1.0",
+  "session_id": "session-abc123",
+  "content": {
+    "text": "I can help you with that refund request. Could you share the order number?",
+    "tool_calls": [
+      {
+        "name": "lookup_customer",
+        "arguments": {"email": "user@example.com"},
+        "result": {"customer_id": "cust_42", "status": "active"}
+      }
+    ]
+  },
+  "context": {
+    "task_type": "customer_support",
+    "model": "claude-opus-4-7",
+    "framework": "langchain",
+    "tags": ["refund", "support"]
+  },
+  "telemetry": {
+    "latency_ms": 842,
+    "tokens_input": 156,
+    "tokens_output": 24
+  }
+}

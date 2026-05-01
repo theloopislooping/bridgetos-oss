@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bridgetos-harness"
+version = "0.1.0"
+description = "Drift and failure-mode test harness for behavioral identity monitors of AI agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [{name = "BridgetOS"}]
+keywords = ["ai", "agents", "drift", "testing", "red-team", "evaluation"]
+dependencies = [
+  "bridgetos>=0.1.0",
+  "rich>=13.0.0",
+  "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0.0",
+]
+
+[project.scripts]
+bridgetos-harness = "bridgetos_harness.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bridgetos_harness"]

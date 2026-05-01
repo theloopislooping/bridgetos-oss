@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bridgetos.com/schema/observation/v1.json",
+  "title": "BridgetOS Observation",
+  "description": "A single observation of an autonomous AI agent's output, used as input to behavioral identity monitoring.",
+  "type": "object",
+  "required": ["agent_id", "timestamp", "content"],
+  "additionalProperties": false,
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Stable identifier for the agent across observations. Used to associate observations with a per-agent baseline."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the agent produced this output."
+    },
+    "session_id": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Optional session identifier grouping related observations within a single conversation or task."
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Schema version used to construct this observation."
+    },
+    "content": {
+      "type": "object",
+      "description": "The agent's output content for this observation.",
+      "required": ["text"],
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The agent's textual output."
+        },
+        "tool_calls": {
+          "type": "array",
+          "description": "Tools invoked by the agent during this output, in order.",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": {
+              "name": {"type": "string"},
+              "arguments": {"type": "object"},
+              "result": {
+                "description": "Tool execution result; omit if not yet executed.",
+                "type": ["string", "number", "boolean", "object", "array", "null"]
+              },
+              "error": {"type": "string"}
+            }
+          }
+        },
+        "memory": {
+          "type": "object",
+          "description": "Memory operations performed during this output.",
+          "additionalProperties": false,
+          "properties": {
+            "reads": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Identifiers or summaries of memory entries read."
+            },
+            "writes": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Identifiers or summaries of memory entries written."
+            }
+          }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "description": "Contextual metadata describing the deployment context.",
+      "additionalProperties": false,
+      "properties": {
+        "task_type": {
+          "type": "string",
+          "description": "Functional category of the task (e.g., 'customer_support', 'code_review')."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Input prompt or instruction the agent received."
+        },
+        "model": {
+          "type": "string",
+          "description": "Model identifier (e.g., 'claude-opus-4-7', 'gpt-5')."
+        },
+        "framework": {
+          "type": "string",
+          "description": "Agent framework (e.g., 'langchain', 'crewai', 'openai-agents')."
+        },
+        "tags": {
+          "type": "array",
+          "items": {"type": "string"},
+          "maxItems": 32
+        }
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "description": "Operational telemetry for this output.",
+      "additionalProperties": false,
+      "properties": {
+        "latency_ms": {
+          "type": "number",
+          "minimum": 0,
+          "description": "End-to-end response latency in milliseconds."
+        },
+        "tokens_input": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_output": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error": {
+          "type": "string",
+          "description": "Error message if the agent failed during this output."
+        },
+        "retries": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of retries performed for this output."
+        }
+      }
+    }
+  }
+}
