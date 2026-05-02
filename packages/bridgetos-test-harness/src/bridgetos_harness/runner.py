@@ -89,9 +89,9 @@ class Runner:
             scores.append(result.drift_score)
             severities.append(result.severity)
             governance_states.append(result.governance_state)
-            if (
-                first_detection_index is None
-                and result.severity not in (None, "normal")
+            if first_detection_index is None and result.severity not in (
+                None,
+                "normal",
             ):
                 first_detection_index = i
 

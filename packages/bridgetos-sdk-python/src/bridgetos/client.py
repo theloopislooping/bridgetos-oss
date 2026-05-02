@@ -46,7 +46,9 @@ class Client:
             raise BridgetOSError(
                 "API key required. Pass api_key= or set BRIDGETOS_API_KEY env var."
             )
-        self.base_url = (base_url or os.environ.get("BRIDGETOS_BASE_URL") or DEFAULT_BASE_URL).rstrip("/")
+        self.base_url = (
+            base_url or os.environ.get("BRIDGETOS_BASE_URL") or DEFAULT_BASE_URL
+        ).rstrip("/")
         self._http = httpx.Client(
             timeout=timeout,
             headers={
@@ -139,7 +141,9 @@ class AsyncClient:
             raise BridgetOSError(
                 "API key required. Pass api_key= or set BRIDGETOS_API_KEY env var."
             )
-        self.base_url = (base_url or os.environ.get("BRIDGETOS_BASE_URL") or DEFAULT_BASE_URL).rstrip("/")
+        self.base_url = (
+            base_url or os.environ.get("BRIDGETOS_BASE_URL") or DEFAULT_BASE_URL
+        ).rstrip("/")
         self._http = httpx.AsyncClient(
             timeout=timeout,
             headers={
@@ -156,7 +160,11 @@ class AsyncClient:
             body: Any
             try:
                 body = response.json()
-                message = body.get("message", response.reason_phrase) if isinstance(body, dict) else response.reason_phrase
+                message = (
+                    body.get("message", response.reason_phrase)
+                    if isinstance(body, dict)
+                    else response.reason_phrase
+                )
             except Exception:
                 body = response.text
                 message = response.reason_phrase

@@ -4,7 +4,13 @@ from __future__ import annotations
 
 from typing import Iterator
 
-from bridgetos import Observation, ObservationContent, ObservationContext, ObservationTelemetry, ToolCall
+from bridgetos import (
+    Observation,
+    ObservationContent,
+    ObservationContext,
+    ObservationTelemetry,
+    ToolCall,
+)
 
 from bridgetos_harness.scenarios.base import Scenario, ScenarioContext, safe_choice
 

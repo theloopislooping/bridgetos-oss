@@ -1,0 +1,33 @@
+name: coverage
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: sdk
+        working-directory: packages/bridgetos-sdk-python
+        run: |
+          uv sync --extra dev
+          uv run pytest --cov --cov-report=term-missing
+      - name: langchain
+        working-directory: packages/bridgetos-langchain
+        run: |
+          uv sync --extra dev
+          uv run pytest --cov --cov-report=term-missing
+      - name: harness
+        working-directory: packages/bridgetos-test-harness
+        run: |
+          uv sync --extra dev
+          uv run pytest --cov --cov-report=term-missing

@@ -1,0 +1,67 @@
+name: tests
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  test-sdk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/bridgetos-sdk-python
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --extra dev
+      - run: uv run ruff check src/
+      - run: uv run ruff format --check src/
+      - run: uv run pytest
+
+  test-langchain:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/bridgetos-langchain
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --extra dev
+      - run: uv run ruff check src/
+      - run: uv run ruff format --check src/
+      - run: uv run pytest
+
+  test-harness:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/bridgetos-test-harness
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --extra dev
+      - run: uv run ruff check src/
+      - run: uv run ruff format --check src/
+      - run: uv run pytest
+
+  validate-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv run --with check-jsonschema check-jsonschema --check-metaschema packages/bridgetos-schema/observation-v1.json

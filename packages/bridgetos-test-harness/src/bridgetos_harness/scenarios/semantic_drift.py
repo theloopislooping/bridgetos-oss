@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import Iterator
 
-from bridgetos import Observation, ObservationContent, ObservationContext, ObservationTelemetry
+from bridgetos import (
+    Observation,
+    ObservationContent,
+    ObservationContext,
+    ObservationTelemetry,
+)
 
 from bridgetos_harness.scenarios.base import Scenario, ScenarioContext, safe_choice
 from bridgetos_harness.scenarios.baseline import BASELINE_RESPONSES
@@ -38,7 +43,9 @@ class SemanticDrift(Scenario):
     description = "Gradual topic drift over n observations. Should trigger H3/H4 drift."
     expected_drift = True
 
-    def __init__(self, n: int = 30, drift_strength: float = 0.5, seed: int | None = None) -> None:
+    def __init__(
+        self, n: int = 30, drift_strength: float = 0.5, seed: int | None = None
+    ) -> None:
         super().__init__(n=n, seed=seed)
         self.drift_strength = max(0.0, min(1.0, drift_strength))
 

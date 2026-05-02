@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import Iterator
 
-from bridgetos import Observation, ObservationContent, ObservationContext, ObservationTelemetry
+from bridgetos import (
+    Observation,
+    ObservationContent,
+    ObservationContext,
+    ObservationTelemetry,
+)
 
 from bridgetos_harness.scenarios.base import Scenario, ScenarioContext
 
@@ -40,7 +45,9 @@ class StylisticDrift(Scenario):
     description = "Verbosity and formality shifts. Should trigger stylometric drift."
     expected_drift = True
 
-    def __init__(self, n: int = 25, mode: str = "verbose", seed: int | None = None) -> None:
+    def __init__(
+        self, n: int = 25, mode: str = "verbose", seed: int | None = None
+    ) -> None:
         super().__init__(n=n, seed=seed)
         if mode not in {"verbose", "terse"}:
             raise ValueError("mode must be 'verbose' or 'terse'")
