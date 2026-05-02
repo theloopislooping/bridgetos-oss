@@ -1,3 +1,4 @@
+# TODO: OpenAI Agents SDK adapter (bridgetos-openai-agents)
 """LangChain callback that emits BridgetOS observations on each LLM/tool event."""
 
 from __future__ import annotations
