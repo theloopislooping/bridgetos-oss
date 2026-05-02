@@ -16,6 +16,15 @@ uv run pytest
 uv run pytest --cov --cov-report=term-missing
 ```
 
+## Lint and format
+
+```bash
+uv run ruff check src/
+uv run ruff format src/
+```
+
+CI runs both as `--check` (no auto-fix). Fix locally before pushing.
+
 ## Callback architecture
 
 `BridgetOSCallback` follows a two-phase accumulate-then-flush pattern:
@@ -45,4 +54,4 @@ export BRIDGETOS_BASE_URL=https://api.bridgetos.com
 
 Then run a short LangChain chain with `BridgetOSCallback` in the `callbacks` list and verify observations appear in the API.
 
-For unit tests, construct the client with `dry_run=True` (or patch `Client.observe`) so no real HTTP calls are made.
+For unit tests, patch `Client.observe` so no real HTTP calls are made.
