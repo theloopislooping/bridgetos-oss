@@ -10,7 +10,14 @@ from uuid import UUID
 from langchain_core.callbacks.base import BaseCallbackHandler
 from langchain_core.outputs import LLMResult
 
-from bridgetos import Client, Observation, ObservationContent, ObservationContext, ObservationTelemetry, ToolCall
+from bridgetos import (
+    Client,
+    Observation,
+    ObservationContent,
+    ObservationContext,
+    ObservationTelemetry,
+    ToolCall,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -121,9 +128,7 @@ class BridgetOSCallback(BaseCallbackHandler):
         name: str | None = None,
         **kwargs: Any,
     ) -> None:
-        self._pending_tool_calls.append(
-            ToolCall(name=name or "unknown", result=output)
-        )
+        self._pending_tool_calls.append(ToolCall(name=name or "unknown", result=output))
 
     def on_tool_error(
         self,
@@ -162,7 +167,11 @@ class BridgetOSCallback(BaseCallbackHandler):
 
     @staticmethod
     def _extract_token_usage(response: LLMResult) -> dict[str, int | None]:
-        usage = (response.llm_output or {}).get("token_usage", {}) if response.llm_output else {}
+        usage = (
+            (response.llm_output or {}).get("token_usage", {})
+            if response.llm_output
+            else {}
+        )
         return {
             "input": usage.get("prompt_tokens") or usage.get("input_tokens"),
             "output": usage.get("completion_tokens") or usage.get("output_tokens"),

@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from typing import Iterator
 
-from bridgetos import Observation, ObservationContent, ObservationContext, ObservationTelemetry
+from bridgetos import (
+    Observation,
+    ObservationContent,
+    ObservationContext,
+    ObservationTelemetry,
+)
 
 from bridgetos_harness.scenarios.base import Scenario, ScenarioContext, safe_choice
 from bridgetos_harness.scenarios.baseline import BASELINE_RESPONSES
@@ -28,10 +33,14 @@ class PersonaBreak(Scenario):
     """
 
     name = "persona_break"
-    description = "Agent breaks declared persona. Should trigger stance/coherence drift."
+    description = (
+        "Agent breaks declared persona. Should trigger stance/coherence drift."
+    )
     expected_drift = True
 
-    def __init__(self, n: int = 20, break_rate: float = 0.4, seed: int | None = None) -> None:
+    def __init__(
+        self, n: int = 20, break_rate: float = 0.4, seed: int | None = None
+    ) -> None:
         super().__init__(n=n, seed=seed)
         self.break_rate = max(0.0, min(1.0, break_rate))
 

@@ -30,12 +30,28 @@ def main() -> None:
 
 @main.command(name="run")
 @click.option("--agent-id", default="harness-agent-001", show_default=True)
-@click.option("--scenario", "scenario_names", multiple=True, default=list(SCENARIO_BUILDERS), show_default=True,
-              help="Scenarios to run. Repeat flag for multiple.")
+@click.option(
+    "--scenario",
+    "scenario_names",
+    multiple=True,
+    default=list(SCENARIO_BUILDERS),
+    show_default=True,
+    help="Scenarios to run. Repeat flag for multiple.",
+)
 @click.option("--n", default=20, show_default=True, help="Observations per scenario.")
-@click.option("--dry-run", is_flag=True, help="Generate observations without sending to API.")
-@click.option("--output", type=click.Path(), default=None, help="Save report JSON to this path.")
-def run(agent_id: str, scenario_names: tuple[str, ...], n: int, dry_run: bool, output: str | None) -> None:
+@click.option(
+    "--dry-run", is_flag=True, help="Generate observations without sending to API."
+)
+@click.option(
+    "--output", type=click.Path(), default=None, help="Save report JSON to this path."
+)
+def run(
+    agent_id: str,
+    scenario_names: tuple[str, ...],
+    n: int,
+    dry_run: bool,
+    output: str | None,
+) -> None:
     """Run drift scenarios against a BridgetOS-monitored agent."""
     unknown = set(scenario_names) - set(SCENARIO_BUILDERS)
     if unknown:
