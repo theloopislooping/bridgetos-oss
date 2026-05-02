@@ -19,9 +19,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: uv sync --extra dev
-      - run: uv run pytest
       - run: uv run ruff check src/
       - run: uv run ruff format --check src/
+      - run: uv run pytest
 
   test-langchain:
     runs-on: ubuntu-latest
@@ -37,9 +37,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: uv sync --extra dev
-      - run: uv run pytest
       - run: uv run ruff check src/
       - run: uv run ruff format --check src/
+      - run: uv run pytest
 
   test-harness:
     runs-on: ubuntu-latest
@@ -55,9 +55,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: uv sync --extra dev
-      - run: uv run pytest
       - run: uv run ruff check src/
       - run: uv run ruff format --check src/
+      - run: uv run pytest
 
   validate-schema:
     runs-on: ubuntu-latest
